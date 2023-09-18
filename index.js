@@ -18,7 +18,7 @@ app.post('/create-payment-intent', async (req, res) => {
       },
     });
 
-    res.json({ clientSecret: paymentIntent.client_secret, amount });
+    res.json({ clientSecret: paymentIntent.client_secret });
   } catch (error) {
     console.error('Error creating Payment Intent:', error);
     res.status(500).json({ error: 'Error creating Payment Intent' });
