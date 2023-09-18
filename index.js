@@ -1,10 +1,12 @@
 const express = require('express');
+const cors = require("cors")
 require('dotenv').config()
 
 const stripe = require('stripe')(process.env.STRIPE_SK_KEY);
 
 const app = express();
 app.use(express.json());
+app.use(cors())
 
 app.post('/create-payment-intent', async (req, res) => {
   const { amount } = req.body
