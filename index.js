@@ -9,11 +9,12 @@ app.use(express.json());
 app.use(cors())
 
 app.post('/create-payment-intent', async (req, res) => {
-  const { amount } = req.body
+  const { amount, metadata } = req.body
 
   try {
     const paymentIntent = await stripe.paymentIntents.create({
       amount,
+      metadata,
       currency: 'usd',
       automatic_payment_methods: {
         enabled: true,
@@ -35,8 +36,8 @@ app.get('/get-payment-intent', async (req, res) => {
     
     res.json({ paymentIntent })
   } catch (error) {
-    console.error('Error verifying payment:', error);
-    res.status(500).json({ error: 'Error verifying payment' });
+    console.error('Error getting payment intent:', error);
+    res.status(500).json({ error: 'Error getting payment intent' });
   }
 })
 
