@@ -27,6 +27,19 @@ app.post('/create-payment-intent', async (req, res) => {
   }
 });
 
+app.get('/get-payment-intent', async (req, res) => {
+  const { payment_intent_client_secret } = req.query
+
+  try {
+    const paymentIntent = await stripe.paymentIntents.retrieve(payment_intent_client_secret)
+    
+    res.json({ paymentIntent })
+  } catch (error) {
+    console.error('Error verifying payment:', error);
+    res.status(500).json({ error: 'Error verifying payment' });
+  }
+})
+
 const PORT = process.env.PORT || 6000;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
