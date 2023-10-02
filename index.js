@@ -9,12 +9,11 @@ app.use(express.json());
 app.use(cors())
 
 app.post('/create-payment-intent', async (req, res) => {
-  const { amount, metadata } = req.body
+  const { amount } = req.body
 
   try {
     const paymentIntent = await stripe.paymentIntents.create({
       amount,
-      metadata,
       currency: 'usd',
       automatic_payment_methods: {
         enabled: true,
